@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Molecule Mischief · Chemistry meets Maths</title>
+<style>
+:root{--bg:#f5f3ff;--bg2:#e0f2fe;--card:#ffffffcc;--tx:#1e1b3a;--mu:#5d5a7a;--ln:#d9d4f5;--a:#6d28d9;--b:#0ea5e9;--c:#f97316;--g:#10b981;--n:109,40,217;--hero:linear-gradient(135deg,#ede9fe,#dbeafe 50%,#ffedd5);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0b1e;--bg2:#10203a;--card:#1a1740cc;--tx:#f1efff;--mu:#a9a6cc;--ln:#35306b;--a:#a78bfa;--b:#38bdf8;--c:#fb923c;--g:#34d399;--n:167,139,250;--hero:linear-gradient(135deg,#1e1450,#0c2a4d 55%,#3b1d2e)}}
+*{box-sizing:inherit}html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 "Trebuchet MS","Segoe UI",system-ui,sans-serif;overflow-x:hidden}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;display:flex;gap:6px;align-items:center;padding:10px 16px;background:var(--card);backdrop-filter:blur(10px);border-bottom:1px solid var(--ln)}
+nav b{margin-right:auto;font-size:18px}nav a{color:var(--tx);text-decoration:none;padding:6px 10px;border-radius:99px;font-size:14px}nav a:hover{background:var(--ln)}
+@media(max-width:620px){nav a.h{display:none}}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--card);backdrop-filter:blur(10px);z-index:21}
+section{max-width:980px;margin:0 auto;padding:56px 16px}
+h2{font-size:30px;margin:0 0 6px}h2+p{color:var(--mu);margin:0 0 24px}
+#hero{max-width:none;position:relative;background:var(--hero);overflow:hidden;padding:0}
+#bg{position:absolute;inset:0;width:100%;height:100%}
+.hin{position:relative;max-width:980px;margin:0 auto;padding:70px 16px 60px;display:grid;grid-template-columns:1.2fr 1fr;gap:20px;align-items:center}
+@media(max-width:760px){.hin{grid-template-columns:1fr;text-align:center}}
+h1{font-size:clamp(34px,6vw,60px);line-height:1.05;margin:0 0 14px}
+h1 span{background:linear-gradient(90deg,var(--a),var(--b),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.cta{display:inline-block;padding:13px 24px;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--b));color:#fff;font-weight:700;text-decoration:none;box-shadow:0 8px 24px rgba(var(--n),.4);margin:6px 8px 0 0;border:0;cursor:pointer;font-size:15px}
+.cta.o{background:var(--card);color:var(--tx);box-shadow:none;border:1px solid var(--ln)}
+.stage{position:relative;height:300px}
+.ch{position:absolute;width:var(--s);animation:bob var(--d) ease-in-out infinite;filter:drop-shadow(0 8px 14px rgba(0,0,0,.25))}
+@keyframes bob{50%{transform:translateY(-16px) rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){.ch{animation:none}}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--ln);border-radius:20px;padding:18px;backdrop-filter:blur(6px)}
+.card h3{margin:8px 0 4px}.card p{margin:0;color:var(--mu);font-size:14.5px}
+.who{text-align:center}.who svg{width:96px;height:96px}
+.tag{display:inline-block;font-size:12px;padding:2px 10px;border-radius:99px;background:var(--ln);margin-top:8px}
+.lab{display:grid;grid-template-columns:1fr;gap:14px}
+.ctl{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
+label{font-size:13px;color:var(--mu);display:block}label b{color:var(--tx)}input[type=range]{width:100%;accent-color:var(--a)}
+canvas.s{width:100%;height:auto;border-radius:14px;background:var(--bg);border:1px solid var(--ln);display:block}
+.btn{padding:9px 14px;border:1px solid var(--ln);border-radius:99px;background:var(--bg);color:var(--tx);font-weight:700;cursor:pointer;margin:8px 6px 0 0}
+.guide{display:flex;gap:12px;align-items:center;margin-top:12px}.guide svg{width:64px;height:64px;flex:none}
+.bub{background:var(--bg);border:1px solid var(--ln);border-radius:16px;padding:10px 14px;font-size:14.5px}
+.eq{font:13px ui-monospace,Menlo,monospace;background:var(--bg);border:1px solid var(--ln);border-radius:12px;padding:10px;white-space:pre;overflow-x:auto;margin-top:10px}
+.num{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(135deg,var(--a),var(--c))}
+.fm{font:700 20px ui-monospace,Menlo,monospace;color:var(--a);margin:8px 0}
+.q{margin-bottom:16px}.q b{display:block;margin-bottom:8px}
+.opt{display:block;width:100%;text-align:left;margin:6px 0;padding:10px 14px;border-radius:12px;border:1px solid var(--ln);background:var(--bg);color:var(--tx);cursor:pointer;font-size:15px}
+.opt.good{background:var(--g);color:#fff;border-color:var(--g)}.opt.bad{background:#ef4444;color:#fff;border-color:#ef4444}
+footer{text-align:center;color:var(--mu);padding:30px 16px 40px;font-size:14px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="face" viewBox="0 0 100 100"><circle cx="50" cy="50" r="44" fill="currentColor"/><ellipse cx="34" cy="30" rx="14" ry="8" fill="#fff" opacity=".3"/><circle cx="36" cy="46" r="10" fill="#fff"/><circle cx="64" cy="46" r="10" fill="#fff"/><circle cx="38" cy="48" r="5" fill="#111"/><circle cx="66" cy="48" r="5" fill="#111"/><path d="M34 66Q50 82 66 66" stroke="#111" stroke-width="4.5" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="prof" viewBox="0 0 100 100"><use href="#face"/><circle cx="36" cy="46" r="13" fill="none" stroke="#111" stroke-width="3"/><circle cx="64" cy="46" r="13" fill="none" stroke="#111" stroke-width="3"/><path d="M49 46h2" stroke="#111" stroke-width="3"/><path d="M22 18L50 2L78 18L50 26Z" fill="#111"/><path d="M78 18v16" stroke="#facc15" stroke-width="3"/></symbol>
+</defs></svg>
+
+<nav><b>⚗️ Molecule Mischief</b><a href="#meet" class="h">Characters</a><a href="#lab">Lab</a><a href="#learn" class="h">Learn</a><a href="#quiz">Quiz</a></nav>
+
+<section id="hero"><canvas id="bg"></canvas>
+ <div class="hin">
+  <div>
+   <p style="margin:0;font-weight:700;color:var(--a)">🧪 Chemistry × 📐 Maths</p>
+   <h1>Tiny particles. <span>Giant patterns.</span></h1>
+   <p style="font-size:18px;color:var(--mu)">Billions of molecules zoom around randomly, yet together they follow a perfect curve. Meet the crew, heat things up and see maths hiding inside every balloon.</p>
+   <a class="cta" href="#lab">Enter the Lab →</a><a class="cta o" href="#learn">How does it work?</a>
+  </div>
+  <div class="stage">
+   <svg class="ch" style="--s:130px;--d:3s;left:4%;top:8%;color:#38bdf8"><use href="#face"/></svg>
+   <svg class="ch" style="--s:150px;--d:4s;left:38%;top:34%;color:#a78bfa"><use href="#prof"/></svg>
+   <svg class="ch" style="--s:110px;--d:2.4s;right:2%;top:2%;color:#fb923c"><use href="#face"/></svg>
+  </div>
+ </div>
+</section>
+
+<section id="meet"><h2>Meet the crew</h2><p>Three tiny characters who explain everything in this lab.</p>
+ <div class="grid">
+  <div class="card who"><svg style="color:#38bdf8"><use href="#face"/></svg><h3>Chilly ❄️</h3><p>Slow, sleepy and cool. Chilly lives at <b>low temperature</b>, where molecules barely move.</p><span class="tag">low T · slow speed</span></div>
+  <div class="card who"><svg style="color:#fb923c"><use href="#face"/></svg><h3>Zippy 🔥</h3><p>Never sits still! Zippy lives at <b>high temperature</b> and hits the walls hard and often.</p><span class="tag">high T · high pressure</span></div>
+  <div class="card who"><svg style="color:#a78bfa"><use href="#prof"/></svg><h3>Prof. Tenali 🎓</h3><p>Named after the clever Tenali Raman. He watches your experiments and explains what is happening.</p><span class="tag">your guide</span></div>
+ </div></section>
+
+<section id="lab"><h2>The Gas Lab</h2><p>Change the sliders. Watch the particles and the maths react together.</p>
+ <div class="card lab">
+  <div class="ctl">
+   <label>🌡️ Temperature T = <b id="Tv"></b><input id="T" type="range" min="5" max="100" value="40"></label>
+   <label>🗜️ Volume (piston) = <b id="Vv"></b><input id="V" type="range" min="150" max="780" value="780"></label>
+   <label>⚛️ Particles N = <b id="Nv"></b><input id="N" type="range" min="20" max="400" value="200"></label>
+  </div>
+  <div><button class="btn" id="heat">🔥 Heat ×2</button><button class="btn" id="cool">❄️ Cool ÷2</button><button class="btn" id="pause">⏸ Pause</button></div>
+  <canvas class="s" id="box" width="800" height="300"></canvas>
+  <div class="guide"><svg style="color:#a78bfa"><use href="#prof"/></svg><div class="bub" id="say"></div></div>
+  <b>📊 Speeds of all particles (bars) vs the Maxwell–Boltzmann curve (line)</b>
+  <canvas class="s" id="hist" width="800" height="250"></canvas>
+  <div class="eq" id="math"></div>
+  <div class="card" style="margin:0"><b>🎯 Challenge:</b> <span id="tg"></span> <button class="btn" id="newc">New challenge</button><div class="bub" id="cres" style="margin-top:8px"></div></div>
+  <div class="card" style="margin:0"><b>📈 Boyle’s Law recorder</b><br><small>Keep T and N fixed, change the volume, wait a moment, then press Record. Points should land on the curve P = NkT/A.</small><br><button class="btn" id="rec">➕ Record point</button><button class="btn" id="clr">Clear</button><canvas class="s" id="pv" width="800" height="240" style="margin-top:8px"></canvas><small id="pvt"></small></div>
+  <div class="card" style="margin:0"><b>🏅 Badges</b><div id="bd"></div></div>
+ </div></section>
+
+<section id="learn"><h2>How does it work?</h2><p>Three ideas, from tiny to big.</p>
+ <div class="grid">
+  <div class="card"><div class="num">1</div><h3>Every particle is random</h3><p>Each molecule moves in a random direction at a random speed. You cannot predict one particle. Its speed is just a number drawn from a bell-shaped (Gaussian) distribution in each direction.</p></div>
+  <div class="card"><div class="num">2</div><h3>The crowd is predictable</h3><p>Add up thousands of particles and a smooth curve appears: the Maxwell–Boltzmann distribution. The area under it is 1, because every particle must have <i>some</i> speed (total probability).</p><div class="fm">f(v) = (v/kT)·e^(−v²/2kT)</div></div>
+  <div class="card"><div class="num">3</div><h3>Crowd + walls = pressure</h3><p>Pressure is just particles bumping the wall. More heat means faster hits. Less room means more hits. That is the Ideal Gas Law, and the lab checks it live.</p><div class="fm">P·A = N·kT</div></div>
+  <div class="card"><div class="num">∫</div><h3>Where is calculus?</h3><p>The average speed is found by integrating v·f(v) from 0 to infinity. The peak is found by setting the derivative f′(v) to zero. That is how we get v_peak = √kT.</p></div>
+ </div></section>
+
+<section id="quiz"><h2>Quick quiz</h2><p>Think like Prof. Tenali. Tap an answer.</p>
+ <div class="card" id="qz"></div></section>
+
+<footer>Made for the Tenali project · Chemistry × Maths · <span id="sc"></span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+/* ---------- hero background: molecule network ---------- */
+(function(){const cv=$('bg'),c=cv.getContext('2d');let w,h,mx=-999,my=-999,ns=[];
+ function rs(){w=cv.width=cv.offsetWidth;h=cv.height=cv.offsetHeight;ns=Array.from({length:Math.round(w*h/9000)},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.6,vy:(Math.random()-.5)*.6,r:2+Math.random()*4}))}
+ addEventListener('resize',rs);rs();cv.parentElement.onmousemove=e=>{const r=cv.getBoundingClientRect();mx=e.clientX-r.left;my=e.clientY-r.top};
+ (function f(){c.clearRect(0,0,w,h);const n=css('--n');
+  for(const p of ns){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+   const dx=p.x-mx,dy=p.y-my,d=Math.hypot(dx,dy);if(d<110){p.x+=dx/d*2;p.y+=dy/d*2}
+   c.fillStyle='rgba('+n+',.55)';c.beginPath();c.arc(p.x,p.y,p.r,0,7);c.fill()}
+  for(let i=0;i<ns.length;i++)for(let j=i+1;j<ns.length;j++){const d=Math.hypot(ns[i].x-ns[j].x,ns[i].y-ns[j].y);
+   if(d<100){c.strokeStyle='rgba('+n+','+(.35*(1-d/100))+')';c.beginPath();c.moveTo(ns[i].x,ns[i].y);c.lineTo(ns[j].x,ns[j].y);c.stroke()}}
+  requestAnimationFrame(f)})()})();
+
+/* ---------- gas simulation ---------- */
+const H=300,X0=10,NB=32,VMAX=320;
+let W=780,kT=40*60,paused=false,P=[],bins=new Array(NB).fill(0),imp=0,tacc=0,Pm=0;
+const gauss=()=>Math.sqrt(-2*Math.log(1-Math.random()))*Math.cos(2*Math.PI*Math.random());
+const mk=()=>({x:Math.random()*W,y:Math.random()*H,vx:gauss()*Math.sqrt(kT),vy:gauss()*Math.sqrt(kT)});
+const setN=n=>{while(P.length<n)P.push(mk());P.length=n};
+function setT(t){const s=Math.sqrt(t*60/kT);P.forEach(p=>{p.vx*=s;p.vy*=s});kT=t*60;$('T').value=t;bins.fill(0);imp=tacc=0}
+function setW(w){W=w;P.forEach(p=>{if(p.x>W)p.x=Math.random()*W});imp=tacc=0}
+let sayT=0;
+function say(){const t=kT/60,v=W;
+ $('say').textContent=t<=15?'Brrr! At low temperature everyone is slow, so the curve is narrow and tall. Chilly is happy! ❄️'
+ :t>=75?'Whoa, so hot! The curve spreads out, the peak moves right and the wall gets hammered. Zippy loves it! 🔥'
+ :v<300?'Squeezed! Same speeds, but less room means more wall hits, so pressure shoots up (Boyle’s law). 🗜️'
+ :'Try the Heat button, or squeeze the piston. Watch the red curve follow the bars. That is maths in action! ✨'}
+function ui(){$('Tv').textContent=(kT/60).toFixed(0);$('Vv').textContent=(W*H/1000).toFixed(0)+' units';$('Nv').textContent=P.length;say()}
+$('T').oninput=e=>{setT(+e.target.value);ui()};$('V').oninput=e=>{setW(+e.target.value);ui()};$('N').oninput=e=>{setN(+e.target.value);imp=tacc=0;ui()};
+$('heat').onclick=()=>{setT(Math.min(100,Math.round(kT/60*2)));ui()};$('cool').onclick=()=>{setT(Math.max(5,Math.round(kT/60/2)));ui()};
+$('pause').onclick=()=>{paused=!paused;$('pause').textContent=paused?'▶ Resume':'⏸ Pause'};
+function step(dt){
+ for(const p of P){p.x+=p.vx*dt;p.y+=p.vy*dt;
+  if(p.x<0){p.x=-p.x;p.vx=-p.vx;imp+=2*Math.abs(p.vx)}
+  if(p.x>W){p.x=Math.max(0,2*W-p.x);p.vx=-p.vx;imp+=2*Math.abs(p.vx)}
+  if(p.y<0){p.y=-p.y;p.vy=-p.vy;imp+=2*Math.abs(p.vy)}
+  if(p.y>H){p.y=2*H-p.y;p.vy=-p.vy;imp+=2*Math.abs(p.vy)}}
+ tacc+=dt;if(tacc>=1.5){Pm=imp/tacc/(2*(W+H));imp=0;tacc=0}
+ const c=new Array(NB).fill(0);for(const p of P){const b=Math.floor(Math.hypot(p.vx,p.vy)/VMAX*NB);if(b<NB)c[b]++}
+ for(let i=0;i<NB;i++)bins[i]=bins[i]*.97+c[i]*.03}
+function drawBox(){const c=$('box').getContext('2d');c.clearRect(0,0,800,300);
+ c.strokeStyle=css('--tx');c.lineWidth=3;c.strokeRect(X0,1,W,H-2);c.fillStyle=css('--c');c.fillRect(X0+W,1,7,H-2);
+ const s=3*Math.sqrt(kT);
+ for(const p of P){const v=Math.hypot(p.vx,p.vy),hue=220-Math.min(v/s,1)*220;c.fillStyle='hsl('+hue+',90%,58%)';c.shadowColor='hsl('+hue+',90%,58%)';c.shadowBlur=8;
+  c.beginPath();c.arc(X0+p.x,p.y,4,0,7);c.fill()}c.shadowBlur=0}
+function drawHist(){const c=$('hist').getContext('2d'),w=800,h=250,pl=34,pb=26,bw=VMAX/NB;c.clearRect(0,0,w,h);
+ const f=v=>v/kT*Math.exp(-v*v/(2*kT))*P.length*bw;let ym=1;for(let i=0;i<NB;i++)ym=Math.max(ym,bins[i],f((i+.5)*bw));ym*=1.15;
+ const X=v=>pl+v/VMAX*(w-pl-8),Y=y=>h-pb-y/ym*(h-pb-12);
+ const g=c.createLinearGradient(0,0,w,0);g.addColorStop(0,css('--b'));g.addColorStop(1,css('--c'));c.fillStyle=g;c.globalAlpha=.6;
+ for(let i=0;i<NB;i++)c.fillRect(X(i*bw)+1,Y(bins[i]),X(bw)-X(0)-2,h-pb-Y(bins[i]));c.globalAlpha=1;
+ c.strokeStyle=css('--a');c.lineWidth=3.5;c.beginPath();for(let v=0;v<=VMAX;v+=2)v?c.lineTo(X(v),Y(f(v))):c.moveTo(X(v),Y(f(v)));c.stroke();
+ c.strokeStyle=css('--ln');c.lineWidth=1;c.beginPath();c.moveTo(pl,8);c.lineTo(pl,h-pb);c.lineTo(w-8,h-pb);c.stroke();
+ c.fillStyle=css('--mu');c.font='12px system-ui';c.fillText('speed v →',w-70,h-6);c.fillText('count',2,14);c.setLineDash([5,4]);
+ [[Math.sqrt(kT),'peak'],[Math.sqrt(Math.PI*kT/2),'mean'],[Math.sqrt(2*kT),'rms']].forEach(([v,l],i)=>{c.strokeStyle=css('--g');c.beginPath();c.moveTo(X(v),h-pb);c.lineTo(X(v),12);c.stroke();c.fillStyle=css('--g');c.fillText(l,X(v)+3,22+i*13)});c.setLineDash([])}
+function readout(){const A=W*H,Pp=P.length*kT/A;
+ $('math').textContent='Predicted pressure  P = N·kT / A = '+Pp.toFixed(3)+'\nMeasured pressure   P = '+(Pm?Pm.toFixed(3):'measuring…')+'  (counted from wall hits)\nv_peak = √kT = '+Math.sqrt(kT).toFixed(1)+'   v_mean = √(πkT/2) = '+Math.sqrt(Math.PI*kT/2).toFixed(1)+'   v_rms = √(2kT) = '+Math.sqrt(2*kT).toFixed(1)}
+let last=performance.now(),fr=0;
+(function loop(t){const dt=Math.min((t-last)/1000,.033);last=t;if(!paused)step(dt);drawBox();drawHist();if(++fr%8==0)readout();requestAnimationFrame(loop)})(last);
+setN(200);ui();
+
+/* ---------- challenge, recorder, badges ---------- */
+const BD={first:['🧪','First data point'],boyle:['📈','Boyle’s Law: 4 points'],win:['🎯','Challenge won'],quiz:['🏆','Quiz master']};
+let have={};try{have=JSON.parse(localStorage.getItem('mm_b')||'{}')}catch(e){}
+function showB(){$('bd').innerHTML=Object.keys(BD).map(k=>'<span class="tag" style="margin:6px 6px 0 0;opacity:'+(have[k]?1:.35)+'">'+BD[k][0]+' '+BD[k][1]+'</span>').join('')}
+function award(k){if(have[k])return;have[k]=1;try{localStorage.setItem('mm_b',JSON.stringify(have))}catch(e){}showB()}
+let tgt=0;
+function newC(){const t=10+Math.random()*80,w=200+Math.random()*560,n=50+Math.random()*300;tgt=n*t*60/(w*H);$('tg').textContent='set the pressure to '+tgt.toFixed(2)+' (±5%) using the sliders.';$('cres').textContent='Hint: P = N·kT / A. Heat or add particles to raise it; add volume to lower it.'}
+function chk(){if(!tgt)return;const Pp=P.length*kT/(W*H),e=(Pp-tgt)/tgt;
+ if(Math.abs(e)<.05){$('cres').textContent='🎉 Nailed it! P = '+Pp.toFixed(2)+'. Press “New challenge” to go again.';award('win');tgt=0}
+ else $('cres').textContent='P now = '+Pp.toFixed(2)+(e>0?' → too high: cool it, add volume or remove particles.':' → too low: heat it, squeeze the piston or add particles.')}
+$('newc').onclick=newC;
+['T','V','N'].forEach(i=>$(i).addEventListener('input',()=>{Pm=0;chk()}));
+['heat','cool'].forEach(i=>$(i).addEventListener('click',()=>{Pm=0;chk()}));
+let rp=[];
+$('rec').onclick=()=>{if(!Pm){$('cres').textContent='Wait a moment, the pressure is still being measured…';return}
+ rp.push({A:W*H/1000,P:Pm});award('first');if(rp.length>=4)award('boyle');drawPV()};
+$('clr').onclick=()=>{rp=[];drawPV()};
+function drawPV(){const c=$('pv').getContext('2d'),w=800,h=240,pl=44,pb=28,a0=45,a1=234;c.clearRect(0,0,w,h);
+ const f=A=>P.length*kT/(A*1000);let ym=f(a0);rp.forEach(r=>ym=Math.max(ym,r.P));ym*=1.1;
+ const X=a=>pl+(a-a0)/(a1-a0)*(w-pl-12),Y=p=>h-pb-p/ym*(h-pb-14);
+ c.strokeStyle=css('--ln');c.lineWidth=1;c.beginPath();c.moveTo(pl,8);c.lineTo(pl,h-pb);c.lineTo(w-8,h-pb);c.stroke();
+ c.fillStyle=css('--mu');c.font='12px system-ui';c.fillText('Volume →',w-70,h-8);c.fillText('Pressure',2,14);
+ c.strokeStyle=css('--a');c.lineWidth=3;c.beginPath();for(let a=a0;a<=a1;a+=2){a>a0?c.lineTo(X(a),Y(f(a))):c.moveTo(X(a),Y(f(a)))}c.stroke();
+ rp.forEach(r=>{c.fillStyle=css('--c');c.beginPath();c.arc(X(r.A),Y(r.P),6,0,7);c.fill()});
+ if(!rp.length)c.fillText('No points yet. Change the volume and press Record.',pl+20,40);
+ $('pvt').textContent=rp.length?'P × V for each point: '+rp.map(r=>(r.P*r.A).toFixed(1)).join(', ')+' → nearly constant, which is Boyle’s law ✔':''}
+setInterval(drawPV,500);showB();newC();drawPV();
+
+/* ---------- quiz ---------- */
+const Q=[
+ ['If you double the temperature, the most probable speed becomes…',['2× bigger','√2× bigger (≈1.41×)','Stays the same'],1,'v_peak = √kT, so doubling T multiplies speed by √2.'],
+ ['You squeeze a gas into half the volume at the same T. Pressure becomes…',['Half','Double','Unchanged'],1,'P = NkT/A. Half the area means double the pressure (Boyle’s law).'],
+ ['Why is the average speed larger than the peak speed?',['Long tail of very fast particles','Slow particles disappear','Heat adds energy to all equally'],0,'A few very fast molecules on the right-hand tail pull the mean up.']];
+let score=0,done=0;
+$('qz').innerHTML=Q.map((q,i)=>'<div class="q"><b>'+(i+1)+'. '+q[0]+'</b>'+q[1].map((o,j)=>'<button class="opt" data-q="'+i+'" data-j="'+j+'">'+o+'</button>').join('')+'<small id="e'+i+'"></small></div>').join('');
+$('qz').onclick=e=>{const b=e.target.closest('.opt');if(!b||b.parentNode.dataset.d)return;const i=+b.dataset.q,j=+b.dataset.j;b.parentNode.dataset.d=1;
+ const ok=j==Q[i][2];b.classList.add(ok?'good':'bad');if(!ok)b.parentNode.querySelectorAll('.opt')[Q[i][2]].classList.add('good');
+ $('e'+i).textContent=(ok?'✅ Correct! ':'❌ Not quite. ')+Q[i][3];if(ok)score++;done++;
+ if(done==Q.length){$('sc').textContent='Your score: '+score+'/'+Q.length+(score==3?' 🏆':' 🌟');if(score==3)award('quiz')}};
+</script>
+</body>
+</html>
