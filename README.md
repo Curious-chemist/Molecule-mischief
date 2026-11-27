@@ -3,7 +3,7 @@
 An interactive gas-law lab where random particles turn into a perfect probability curve.
 Built as a prototype for the [Tenali](https://github.com/vicharanashala/tenali) project.
 
-**🔗 Live demo:** https://<curious-chemist>.github.io/<REPO-NAME>/
+**🔗 Live demo:** https://curious-chemist.github.io/Molecule-mischief/
 
 ## What it shows
 - 🎈 Live particle simulation (2D ideal gas) with temperature, volume and particle-count sliders
